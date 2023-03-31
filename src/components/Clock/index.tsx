@@ -1,4 +1,6 @@
+import { Heading, Stack } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
+import styles from "./Clock.module.scss";
 
 const Clock = () => {
   const [time, setTime] = useState(new Date());
@@ -28,10 +30,10 @@ const Clock = () => {
     .toUpperCase();
 
   return (
-    <div>
-      <h1>{currentTime}</h1>
-      <h2>{currentDate}</h2>
-    </div>
+    <Stack className={styles.clockContainer}>
+      <Heading as="h1">{currentTime}</Heading>
+      <Heading as="h2">{currentDate}</Heading>
+    </Stack>
   );
 };
 
