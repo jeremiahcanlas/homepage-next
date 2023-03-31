@@ -1,9 +1,10 @@
 import { Box, Text } from "@chakra-ui/react";
+import Clock from "../Clock";
 
 const Mainpage = () => {
   return (
     <Box>
-      <Text>Homepage Test</Text>
+      <Clock />
     </Box>
   );
 };
