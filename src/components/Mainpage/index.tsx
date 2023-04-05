@@ -6,7 +6,7 @@ import styles from "./Mainpage.module.scss";
 const Mainpage = () => {
   return (
     <Box className={styles.mainpageContainer}>
-      <Flex>
+      <Flex flexDirection="column" className={styles.componentOne}>
         <Greet />
         <Clock />
       </Flex>
