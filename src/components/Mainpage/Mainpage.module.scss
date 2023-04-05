@@ -1,9 +1,10 @@
 .mainpageContainer {
-  height: 100vh;
+  height: 100%;
   position: relative;
 }
 
 .componentOne {
   margin-top: 3em;
   padding: 0 1em;
+  max-width: 70%;
 }

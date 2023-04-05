@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import _ from "lodash";
-import { Box } from "@chakra-ui/react";
+import { Box, Text, Flex } from "@chakra-ui/react";
 import styles from "./Greet.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -36,23 +36,46 @@ const Greet = () => {
 
   const getEmoji = () => {
     return hours >= 18 ? (
-      <FontAwesomeIcon icon={faCloudMoon} />
+      <FontAwesomeIcon
+        width="20px"
+        style={{ marginLeft: "0.5em" }}
+        icon={faCloudMoon}
+      />
     ) : hours >= 12 ? (
-      <FontAwesomeIcon icon={faCloudSun} />
+      <FontAwesomeIcon
+        width="20px"
+        style={{ marginLeft: "0.5em" }}
+        icon={faCloudSun}
+      />
     ) : hours >= 5 ? (
-      <FontAwesomeIcon icon={faMugSaucer} />
+      <FontAwesomeIcon
+        width="20px"
+        style={{ marginLeft: "0.5em" }}
+        icon={faMugSaucer}
+      />
     ) : (
-      <FontAwesomeIcon icon={faMugSaucer} />
+      <FontAwesomeIcon
+        width="20px"
+        style={{ marginLeft: "0.5em" }}
+        icon={faMugSaucer}
+      />
     );
   };
 
   return (
     <Box className={styles.greetContainer}>
-      <span>
-        {greet.toUpperCase()}
-        {isBrowser && window.localStorage.getItem("name") === "" ? "" : ", "}
-        {_.toUpper(name)} {getEmoji()}
-      </span>
+      <Flex flexDirection="row">
+        <Text whiteSpace="nowrap">
+          <span>
+            {greet.toUpperCase()}
+            {isBrowser && window.localStorage.getItem("name") === ""
+              ? ""
+              : ", "}
+            {_.toUpper(name)}
+          </span>
+        </Text>
+        {getEmoji()}
+      </Flex>
     </Box>
   );
 };
