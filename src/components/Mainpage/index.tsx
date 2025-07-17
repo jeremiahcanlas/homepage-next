@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { MainpageProps } from "../../types";
 import Clock from "../Clock";
 import Greet from "../Greet";
+import Location from "../Location";
 import Menu from "../Menu";
 import Quote from "../Quotes";
 import Weather from "../Weather";
@@ -46,7 +47,11 @@ const Mainpage = ({ pageProps }: MainpageProps) => {
       <div className="main-container">
         <Greet message={message} />
         <Clock />
-        <Weather />
+        <div>
+          <Weather />
+          <Location />
+        </div>
+
         <Quote quote={quote} />
         <button
           className="cursor-pointer absolute bottom-10 right-10"

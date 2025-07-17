@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 
 import { WeatherDataStructure } from "../../types";
-import Location from "../Location";
 
 const Weather = () => {
   const [weather, setWeather] = useState<WeatherDataStructure | null>(null);
@@ -32,17 +31,14 @@ const Weather = () => {
 
   const renderWeather = () => {
     if (!weather) {
-      return <div className="placeholder w-8 h-15" />;
+      return <div className="placeholder w-8 h-7" />;
     }
 
     return (
-      <div>
-        <h1>
-          {weather.temperature}
-          <span>{weather.unit}</span>
-        </h1>
-        <Location />
-      </div>
+      <h1>
+        {weather.temperature}
+        <span>{weather.unit}</span>
+      </h1>
     );
   };
 
