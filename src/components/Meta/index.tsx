@@ -1,9 +1,6 @@
 import Head from "next/head";
 
-type MetaProps = {
-  title?: string;
-  description?: string;
-};
+import { MetaProps } from "../../types";
 
 const Meta = (props: MetaProps) => {
   const { title, description } = props;

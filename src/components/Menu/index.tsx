@@ -1,0 +1,175 @@
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Form from "next/form";
+import { useEffect, useState } from "react";
+
+const Menu = () => {
+  const [username, setUsername] = useState(
+    localStorage.getItem("username") || ""
+  );
+  const [loading, setLoading] = useState(false);
+
+  // Advanced settings inputs
+  const [temperatureUnit, setTemperatureUnit] = useState(
+    localStorage.getItem("temperatureUnit") || "c"
+  );
+  const [clockFormat, setClockFormat] = useState(
+    localStorage.getItem("clockFormat") || "12"
+  );
+  const [disableQuotes, setDisableQuotes] = useState<boolean>(() => {
+    const stored = localStorage.getItem("disableQuotes");
+    return stored !== null ? JSON.parse(stored) : false;
+  });
+
+  const [darkToggled, setDarkToggled] = useState<boolean>(() => {
+    const stored = localStorage.getItem("dark-toggled");
+    return stored !== null ? JSON.parse(stored) : false;
+  });
+
+  useEffect(() => {
+    const shouldUseDark = darkToggled;
+
+    document.documentElement.classList.toggle("dark", shouldUseDark);
+  }, [darkToggled]);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    if (username.trim()) {
+      localStorage.setItem("username", username.trim());
+
+      // Always store advanced settings, even if UI wasn't expanded
+      localStorage.setItem("temperatureUnit", temperatureUnit);
+      localStorage.setItem("clockFormat", clockFormat);
+      localStorage.setItem("disableQuotes", JSON.stringify(disableQuotes));
+
+      localStorage.setItem("dark-toggled", JSON.stringify(darkToggled));
+
+      window.location.reload();
+    }
+  };
+
+  return (
+    <div className="flex justify-center align-middle h-screen">
+      <div className="my-auto border-1 rounded-md shadow-md p-6">
+        <h1></h1>
+        <Form action="/" onSubmit={handleSubmit} className="space-y-4">
+          <label className="block">
+            <h1>Enter display name:</h1>
+            <input
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="mt-1 block w-full border px-3 py-2 rounded-md shadow-sm"
+              required
+            />
+          </label>
+
+          <div className="space-y-4 border rounded p-4 bg-gray-50 dark:bg-gray-400">
+            {/* Temperature Unit */}
+            <div>
+              <span className="text-gray-700 block mb-1">
+                Temperature Unit:
+              </span>
+              <label className="mr-4">
+                <input
+                  type="radio"
+                  value="c"
+                  checked={temperatureUnit === "c"}
+                  onChange={() => setTemperatureUnit("c")}
+                  className="mr-1"
+                />
+                Celsius
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  value="f"
+                  checked={temperatureUnit === "f"}
+                  onChange={() => setTemperatureUnit("f")}
+                  className="mr-1"
+                />
+                Fahrenheit
+              </label>
+            </div>
+
+            {/* Clock Format */}
+            <div>
+              <span className="text-gray-700 block mb-1">Clock Format:</span>
+              <label className="mr-4">
+                <input
+                  type="radio"
+                  value="12"
+                  checked={clockFormat === "12"}
+                  onChange={() => setClockFormat("12")}
+                  className="mr-1"
+                />
+                12-Hour
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  value="24"
+                  checked={clockFormat === "24"}
+                  onChange={() => setClockFormat("24")}
+                  className="mr-1"
+                />
+                24-Hour
+              </label>
+            </div>
+
+            {/* Disable Quotes */}
+            <div>
+              <label className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={disableQuotes}
+                  onChange={() => setDisableQuotes(!disableQuotes)}
+                  className="mr-2"
+                />
+                Disable daily quotes
+              </label>
+            </div>
+
+            <div>
+              <label className="flex items-center align-middle gap-3">
+                <input
+                  type="checkbox"
+                  name="featureToggle"
+                  checked={darkToggled}
+                  onChange={() => setDarkToggled(!darkToggled)}
+                  className="sr-only peer"
+                />
+
+                <div className="w-9 h-4 bg-gray-300 duration-400 peer-checked:bg-black rounded-full relative transition-colors">
+                  <div
+                    className={`absolute left-1 top-1 w-2 h-2 bg-white rounded-[100%] duration-400 transition-transform  ${
+                      darkToggled ? "translate-x-5" : ""
+                    }`}
+                  />
+                </div>
+
+                <span>dark mode</span>
+              </label>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            className="flex items-center justify-center bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:opacity-60"
+            disabled={loading}
+          >
+            {loading ? (
+              <FontAwesomeIcon className="animate-spin" icon={faSpinner} />
+            ) : (
+              "Save User Settings"
+            )}
+          </button>
+        </Form>
+      </div>
+    </div>
+  );
+};
+
+export default Menu;

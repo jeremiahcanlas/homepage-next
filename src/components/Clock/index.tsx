@@ -1,48 +1,44 @@
-import { Heading, Stack } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
-import styles from "./Clock.module.scss";
-import _ from "lodash";
+import { useEffect, useState } from "react";
 
 const Clock = () => {
-  const [time, setTime] = useState(new Date());
-
-  //   TODO: need to figure out which type
-  const tick: any = () => {
-    setInterval(() => {
-      let time = new Date();
-      setTime(time);
-    }, 1000);
-  };
+  const [dateTime, setDateTime] = useState(() => {
+    const now = new Date();
+    return {
+      currentDate: now
+        .toLocaleString("en-US", { dateStyle: "full" })
+        .toUpperCase(),
+      currentTime: now.toLocaleString("en-US", {
+        hour: "2-digit",
+        hour12: localStorage.getItem("clockFormat") === "12" ? true : false,
+        minute: "2-digit",
+      }),
+    };
+  });
 
   useEffect(() => {
-    tick();
-    return () => {
-      clearInterval(tick);
-    };
-  }, [time]);
+    const interval = setInterval(() => {
+      const now = new Date();
 
-  const currentTime = !_.isNil(time)
-    ? time.toLocaleString("en-US", {
-        hour: "2-digit",
-        minute: "numeric",
-        // second: "2-digit", //if enabled it will get hydration error
-        hour12: true,
-      })
-    : null;
+      setDateTime({
+        currentDate: now
+          .toLocaleString("en-US", { dateStyle: "full" })
+          .toUpperCase(),
+        currentTime: now.toLocaleString("en-US", {
+          hour: "2-digit",
+          hour12: localStorage.getItem("clockFormat") === "12" ? true : false,
+          minute: "2-digit",
+        }),
+      });
+    }, 1000);
 
-  const currentDate = time
-    .toLocaleString("en-US", { dateStyle: "full" })
-    .toUpperCase();
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <Stack className={styles.clockContainer}>
-      <Heading as="h1" className={styles.time}>
-        {currentTime}
-      </Heading>
-      <Heading as="h2" className={styles.date}>
-        {currentDate}
-      </Heading>
-    </Stack>
+    <div>
+      <h1>{dateTime.currentTime}</h1>
+      <h2>{dateTime.currentDate}</h2>
+    </div>
   );
 };
 

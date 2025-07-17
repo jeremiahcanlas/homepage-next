@@ -1,0 +1,52 @@
+@use "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-background: #fff;
+  --color-background-dark: #000;
+  --color-text: ;
+  --color-text-dark: #fff;
+}
+
+@layer utilities {
+  .row-flex {
+    @apply flex flex-row;
+  }
+
+  .col-flex {
+    @apply flex flex-col;
+  }
+
+  .wrap-flex {
+    @apply flex flex-wrap;
+  }
+}
+
+@layer components {
+  .main-container {
+    @apply p-2 bg-background dark:bg-background-dark h-screen w-full flex flex-col gap-2;
+  }
+
+  .placeholder {
+    @apply bg-gray-300 animate-pulse rounded;
+  }
+}
+
+@layer base {
+  body {
+    @apply dark:text-text-dark;
+  }
+
+  h1 {
+    @apply font-bold text-[min(5vw,20px)];
+  }
+
+  h2 {
+    @apply font-medium text-[min(5vw,16px)];
+  }
+
+  p {
+    @apply font-medium text-[min(5vw,14px)];
+  }
+}

@@ -1,82 +1,40 @@
-import React, { useEffect, useState } from "react";
-import _ from "lodash";
-import { Box, Text, Flex } from "@chakra-ui/react";
-import styles from "./Greet.module.scss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCloudMoon,
   faCloudSun,
   faMugSaucer,
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useEffect, useMemo, useState } from "react";
 
-const Greet = () => {
-  const [greet, setGreet] = useState("");
+type GreetProps = {
+  message: string;
+};
 
-  // const isBrowser = () => typeof window !== "undefined";
-  const isBrowser = false;
-  const hours = new Date().getHours();
+const Greet = ({ message }: GreetProps) => {
+  const [username, setUsername] = useState<string | null>(null);
 
   useEffect(() => {
-    greeting();
-  });
+    setUsername(localStorage.getItem("username"));
+  }, []);
 
-  // const name = ` ${(isBrowser && window.localStorage.getItem("name")) || ""}`;
-  const name = `Jeremiah`;
+  const greetingText = username ? `${message}, ${username}` : message;
 
-  //sets the greeting depends on the 24 hr clock
-  const greeting = () => {
-    return hours >= 18
-      ? setGreet("Good evening")
-      : hours >= 12
-      ? setGreet("Good afternoon")
-      : hours >= 5
-      ? setGreet("Good morning")
-      : setGreet("Early morning");
-  };
-
-  const getEmoji = () => {
-    return hours >= 18 ? (
-      <FontAwesomeIcon
-        width="20px"
-        style={{ marginLeft: "0.5em" }}
-        icon={faCloudMoon}
-      />
-    ) : hours >= 12 ? (
-      <FontAwesomeIcon
-        width="20px"
-        style={{ marginLeft: "0.5em" }}
-        icon={faCloudSun}
-      />
-    ) : hours >= 5 ? (
-      <FontAwesomeIcon
-        width="20px"
-        style={{ marginLeft: "0.5em" }}
-        icon={faMugSaucer}
-      />
-    ) : (
-      <FontAwesomeIcon
-        width="20px"
-        style={{ marginLeft: "0.5em" }}
-        icon={faMugSaucer}
-      />
-    );
-  };
+  const icon = useMemo(() => {
+    const hours = new Date().getHours();
+    if (hours >= 18) return faCloudMoon;
+    if (hours >= 12) return faCloudSun;
+    return faMugSaucer;
+  }, []);
 
   return (
-    <Box className={styles.greetContainer}>
-      <Flex flexDirection="row">
-        <Text whiteSpace="nowrap">
-          <span>
-            {greet.toUpperCase()}
-            {isBrowser && window.localStorage.getItem("name") === ""
-              ? ""
-              : ", "}
-            {_.toUpper(name)}
-          </span>
-        </Text>
-        {getEmoji()}
-      </Flex>
-    </Box>
+    <div className="uppercase max-w-[80vw]">
+      <h1 className="whitespace-nowrap">
+        {greetingText}
+        <span className="ml-1">
+          <FontAwesomeIcon width="20px" icon={icon} />
+        </span>
+      </h1>
+    </div>
   );
 };
 
