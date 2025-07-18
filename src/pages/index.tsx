@@ -19,20 +19,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     : "https";
   const baseUrl = `${protocol}://${ctx.req.headers.host}`;
 
-  const hours = new Date().getHours();
-
-  let message;
-
-  if (hours >= 18) {
-    message = "Good evening";
-  } else if (hours >= 12) {
-    message = "Good afternoon";
-  } else if (hours >= 5) {
-    message = "Good morning";
-  } else {
-    message = "Early morning";
-  }
-
   const fetchQuote = async () => {
     try {
       const res = await fetch(`${baseUrl}/api/get-quotes`);
@@ -48,7 +34,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   return {
     props: {
-      message,
       quote: quoteData,
     },
   };

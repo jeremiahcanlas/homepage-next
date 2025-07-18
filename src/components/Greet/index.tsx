@@ -6,15 +6,28 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useMemo, useState } from "react";
 
-type GreetProps = {
-  message: string;
-};
-
-const Greet = ({ message }: GreetProps) => {
+const Greet = () => {
   const [username, setUsername] = useState<string | null>(null);
+  const [message, setMessage] = useState<string | null>(null);
 
   useEffect(() => {
     setUsername(localStorage.getItem("username"));
+
+    const hours = new Date().getHours();
+
+    let message;
+
+    if (hours >= 18) {
+      message = "Good evening";
+    } else if (hours >= 12) {
+      message = "Good afternoon";
+    } else if (hours >= 5) {
+      message = "Good morning";
+    } else {
+      message = "Early morning";
+    }
+
+    setMessage(message);
   }, []);
 
   const greetingText = username ? `${message}, ${username}` : message;
