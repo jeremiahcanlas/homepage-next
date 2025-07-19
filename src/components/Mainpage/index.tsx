@@ -8,10 +8,11 @@ import Greet from "../Greet";
 import Location from "../Location";
 import Menu from "../Menu";
 import Quote from "../Quotes";
+import Search from "../Search";
 import Weather from "../Weather";
 
 const Mainpage = ({ pageProps }: MainpageProps) => {
-  const { quote, message } = pageProps;
+  const { quote } = pageProps;
 
   const [isClient, setIsClient] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -35,9 +36,7 @@ const Mainpage = ({ pageProps }: MainpageProps) => {
 
   const renderMainPageContent = () => {
     if (!isClient)
-      return (
-        <div className="flex justify-center">Loading user settings...</div>
-      );
+      return <div className="main-container">Loading user settings...</div>;
 
     if (isMenuOpen) {
       return <Menu />;
@@ -45,12 +44,14 @@ const Mainpage = ({ pageProps }: MainpageProps) => {
 
     return (
       <div className="main-container">
-        <Greet message={message} />
+        <Greet />
         <Clock />
         <div>
           <Weather />
           <Location />
         </div>
+
+        <Search />
 
         <Quote quote={quote} />
         <button

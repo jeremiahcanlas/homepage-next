@@ -1,4 +1,6 @@
 import { Coords, LocationData } from "@component/types";
+import DuckDuckGoIcon from "@component/vectors";
+import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Form from "next/form";
@@ -17,6 +19,10 @@ const Menu = () => {
   const [clockFormat, setClockFormat] = useState(
     localStorage.getItem("clockFormat") || "12"
   );
+
+  const [defaultSearch, setDefaultSearch] = useState(
+    localStorage.getItem("defaultSearch") || "g"
+  );
   const [disableQuotes, setDisableQuotes] = useState<boolean>(() => {
     const stored = localStorage.getItem("disableQuotes");
     return stored !== null ? JSON.parse(stored) : false;
@@ -27,8 +33,8 @@ const Menu = () => {
     return stored !== null ? JSON.parse(stored) : false;
   });
 
-  const [location, setLocation] = useState<LocationData | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [, setLocation] = useState<LocationData | null>(null);
+  const [, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const getLocationAndResolve = () => {
@@ -113,6 +119,7 @@ const Menu = () => {
       // Always store advanced settings, even if UI wasn't expanded
       localStorage.setItem("temperatureUnit", temperatureUnit);
       localStorage.setItem("clockFormat", clockFormat);
+      localStorage.setItem("defaultSearch", defaultSearch);
       localStorage.setItem("disableQuotes", JSON.stringify(disableQuotes));
 
       localStorage.setItem("dark-toggled", JSON.stringify(darkToggled));
@@ -190,16 +197,51 @@ const Menu = () => {
               </label>
             </div>
 
+            <div>
+              <span className="text-gray-700 block mb-1">Default Search:</span>
+              <label className="mr-4">
+                <input
+                  type="radio"
+                  value="g"
+                  checked={defaultSearch === "g"}
+                  onChange={() => setDefaultSearch("g")}
+                  className="mr-1"
+                />
+
+                <FontAwesomeIcon icon={faGoogle} />
+              </label>
+              <label className="align-middle">
+                <input
+                  type="radio"
+                  value="d"
+                  checked={defaultSearch === "d"}
+                  onChange={() => setDefaultSearch("d")}
+                  className="mr-1"
+                />
+                <DuckDuckGoIcon className="inline-block" />
+              </label>
+            </div>
+
             {/* Disable Quotes */}
             <div>
-              <label className="flex items-center">
+              <label className="flex items-center align-middle gap-3">
                 <input
                   type="checkbox"
+                  name="quotesToggle"
                   checked={disableQuotes}
                   onChange={() => setDisableQuotes(!disableQuotes)}
-                  className="mr-2"
+                  className="sr-only peer"
                 />
-                Disable daily quotes
+
+                <div className="w-9 h-4 bg-gray-300 duration-400 peer-checked:bg-black rounded-full relative transition-colors">
+                  <div
+                    className={`absolute left-1 top-1 w-2 h-2 bg-white rounded-[100%] duration-400 transition-transform  ${
+                      disableQuotes ? "translate-x-5" : ""
+                    }`}
+                  />
+                </div>
+
+                <span>hide daily quotes</span>
               </label>
             </div>
 
