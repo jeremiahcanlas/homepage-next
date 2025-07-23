@@ -1,4 +1,4 @@
-# 🌐 Homepage Project
+# 🌐 Homie Project
 
 A fast, minimalist, privacy-respecting homepage built with Next.js and Tailwind CSS. Features include real-time search suggestions, customizable search engines, dark mode toggle, and geolocation-based greetings.
 
