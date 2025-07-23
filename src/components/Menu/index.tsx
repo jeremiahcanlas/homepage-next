@@ -1,4 +1,4 @@
-import { Coords, LocationData } from "@component/types";
+import { Coords } from "@component/types";
 import DuckDuckGoIcon from "@component/vectors";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
@@ -33,7 +33,6 @@ const Menu = () => {
     return stored !== null ? JSON.parse(stored) : false;
   });
 
-  const [, setLocation] = useState<LocationData | null>(null);
   const [, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -63,15 +62,6 @@ const Menu = () => {
           if (coordsChanged) {
             console.log("Coords changed, updating...");
             localStorage.setItem("user_coords", JSON.stringify(newCoords));
-            localStorage.removeItem("user_location_data");
-            reverseGeocode(newCoords.lat, newCoords.lon);
-          } else {
-            const cachedLocation = localStorage.getItem("user_location_data");
-            if (cachedLocation) {
-              setLocation(JSON.parse(cachedLocation));
-            } else {
-              reverseGeocode(newCoords.lat, newCoords.lon);
-            }
           }
         },
         (err) => {
@@ -84,21 +74,21 @@ const Menu = () => {
       );
     };
 
-    const reverseGeocode = async (lat: number, lon: number) => {
-      try {
-        const res = await fetch(`/api/reverse-geocode?lat=${lat}&lon=${lon}`);
-        const data = await res.json();
+    // const reverseGeocode = async (lat: number, lon: number) => {
+    //   try {
+    //     const res = await fetch(`/api/reverse-geocode?lat=${lat}&lon=${lon}`);
+    //     const data = await res.json();
 
-        if (data.error) {
-          setError(data.error);
-        } else {
-          localStorage.setItem("user_location_data", JSON.stringify(data));
-          setLocation(data);
-        }
-      } catch {
-        setError("Failed to reverse geocode location");
-      }
-    };
+    //     if (data.error) {
+    //       setError(data.error);
+    //     } else {
+    //       localStorage.setItem("user_location_data", JSON.stringify(data));
+    //       setLocation(data);
+    //     }
+    //   } catch {
+    //     setError("Failed to reverse geocode location");
+    //   }
+    // };
 
     getLocationAndResolve();
   }, []);
