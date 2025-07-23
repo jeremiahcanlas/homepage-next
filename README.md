@@ -47,7 +47,7 @@ nvm use 18.20.3
 git clone https://github.com/YOUR_USERNAME/homepage-next.git
 cd homepage-next
 ```
-### 2.Install Dependencies
+### 2. Install Dependencies
 
 ```bash
 npm install
@@ -55,7 +55,7 @@ npm install
 yarn install
 ```
 
-### 3.Run Locally
+### 3. Run Locally
 
 ```bash
 npm run dev
