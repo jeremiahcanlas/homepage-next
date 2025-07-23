@@ -28,6 +28,6 @@ A fast, minimalist, privacy-respecting homepage built with Next.js and Tailwind 
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/homepage.git
-cd homepage
+git clone https://github.com/YOUR_USERNAME/homepage-next.git
+cd homepage-next
 
