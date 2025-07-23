@@ -2,7 +2,6 @@ import { faGear } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 
-import { MainpageProps } from "../../types";
 import Clock from "../Clock";
 import Greet from "../Greet";
 import Location from "../Location";
@@ -11,9 +10,7 @@ import Quote from "../Quotes";
 import Search from "../Search";
 import Weather from "../Weather";
 
-const Mainpage = ({ pageProps }: MainpageProps) => {
-  const { quote } = pageProps;
-
+const Mainpage = () => {
   const [isClient, setIsClient] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -53,7 +50,7 @@ const Mainpage = ({ pageProps }: MainpageProps) => {
 
         <Search />
 
-        <Quote quote={quote} />
+        <Quote />
         <button
           className="cursor-pointer absolute bottom-10 right-10"
           onClick={() => {

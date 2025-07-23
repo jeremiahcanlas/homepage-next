@@ -1,6 +1,29 @@
-import { QuoteProps } from "../../types";
+import { useEffect, useState } from "react";
 
-const Quote = ({ quote }: { quote: QuoteProps }) => {
+type QuoteProps = {
+  error?: string;
+  author: string;
+  text: string;
+};
+
+const Quote = () => {
+  const [quote, setQuote] = useState<QuoteProps | null>(null);
+
+  useEffect(() => {
+    const fetchQuote = async () => {
+      try {
+        const res = await fetch(`/api/get-quotes`);
+        const data = await res.json();
+        setQuote(data);
+      } catch (error) {
+        console.log("Quote API Error:", error);
+        setQuote(null);
+      }
+    };
+
+    fetchQuote();
+  }, []);
+
   if (
     !quote ||
     quote.error ||
