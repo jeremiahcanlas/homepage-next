@@ -3,10 +3,11 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-background: #fff;
-  --color-background-dark: #000;
-  --color-text: ;
-  --color-text-dark: #fff;
+  --color-background: #f8fafc;
+  --color-background-dark: #1e1e2f;
+  --color-background-dark-secondary: #2c2c3a;
+  --color-text: #111827;
+  --color-text-dark: #d1d5db;
 }
 
 @layer utilities {

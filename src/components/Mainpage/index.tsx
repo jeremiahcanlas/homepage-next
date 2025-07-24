@@ -1,4 +1,4 @@
-import { Coords } from "@component/types";
+import { getCoords } from "@component/utils/location";
 import { faGear } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
@@ -17,45 +17,10 @@ const Mainpage = () => {
   const [isQuoteDisabled, setIsQuoteDisabled] = useState(false);
 
   useEffect(() => {
-    // Wait until component has mounted
-
-    const getLocationAndResolve = async () => {
-      if (!navigator.geolocation) {
-        console.error("Geolocation not supported");
-        return;
-      }
-
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const newCoords: Coords = {
-            lat: parseFloat(position.coords.latitude.toFixed(5)),
-            lon: parseFloat(position.coords.longitude.toFixed(5)),
-          };
-
-          const cachedCoordsRaw = localStorage.getItem("user_coords");
-          const cachedCoords: Coords | null = cachedCoordsRaw
-            ? JSON.parse(cachedCoordsRaw)
-            : null;
-
-          const coordsChanged =
-            !cachedCoords ||
-            cachedCoords.lat !== newCoords.lat ||
-            cachedCoords.lon !== newCoords.lon;
-
-          if (coordsChanged) {
-            console.log("Coords changed, updating...");
-            localStorage.setItem("user_coords", JSON.stringify(newCoords));
-          }
-        },
-        () => {},
-        {
-          enableHighAccuracy: true,
-          timeout: 10000,
-        }
-      );
+    const fetchCoords = async () => {
+      await getCoords();
     };
-
-    getLocationAndResolve();
+    fetchCoords();
     setIsClient(true);
   }, []);
 

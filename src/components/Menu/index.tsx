@@ -1,4 +1,3 @@
-import { Coords } from "@component/types";
 import DuckDuckGoIcon from "@component/vectors";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
@@ -12,7 +11,6 @@ const Menu = () => {
   );
   const [loading, setLoading] = useState(false);
 
-  // Advanced settings inputs
   const [temperatureUnit, setTemperatureUnit] = useState(
     localStorage.getItem("temperatureUnit") || "c"
   );
@@ -32,66 +30,6 @@ const Menu = () => {
     const stored = localStorage.getItem("dark-toggled");
     return stored !== null ? JSON.parse(stored) : false;
   });
-
-  const [, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const getLocationAndResolve = () => {
-      if (!navigator.geolocation) {
-        setError("Geolocation not supported");
-        return;
-      }
-
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const newCoords: Coords = {
-            lat: parseFloat(position.coords.latitude.toFixed(5)),
-            lon: parseFloat(position.coords.longitude.toFixed(5)),
-          };
-
-          const cachedCoordsRaw = localStorage.getItem("user_coords");
-          const cachedCoords: Coords | null = cachedCoordsRaw
-            ? JSON.parse(cachedCoordsRaw)
-            : null;
-
-          const coordsChanged =
-            !cachedCoords ||
-            cachedCoords.lat !== newCoords.lat ||
-            cachedCoords.lon !== newCoords.lon;
-
-          if (coordsChanged) {
-            console.log("Coords changed, updating...");
-            localStorage.setItem("user_coords", JSON.stringify(newCoords));
-          }
-        },
-        (err) => {
-          setError(err.message || "Permission denied");
-        },
-        {
-          enableHighAccuracy: true,
-          timeout: 10000,
-        }
-      );
-    };
-
-    // const reverseGeocode = async (lat: number, lon: number) => {
-    //   try {
-    //     const res = await fetch(`/api/reverse-geocode?lat=${lat}&lon=${lon}`);
-    //     const data = await res.json();
-
-    //     if (data.error) {
-    //       setError(data.error);
-    //     } else {
-    //       localStorage.setItem("user_location_data", JSON.stringify(data));
-    //       setLocation(data);
-    //     }
-    //   } catch {
-    //     setError("Failed to reverse geocode location");
-    //   }
-    // };
-
-    getLocationAndResolve();
-  }, []);
 
   useEffect(() => {
     const shouldUseDark = darkToggled;
@@ -119,12 +57,14 @@ const Menu = () => {
   };
 
   return (
-    <div className="flex justify-center align-middle h-screen">
-      <div className="my-auto border-1 rounded-md shadow-md p-6">
-        <h1></h1>
+    <div className="flex justify-center align-middle h-screen ">
+      <div className="my-auto border-1 rounded-md shadow-md p-6 w-100">
         <Form action="/" onSubmit={handleSubmit} className="space-y-4">
           <label className="block">
-            <h1>Enter display name:</h1>
+            <h1 className="capitalize">
+              {!username ? "Enter display name:" : `Hello, ${username} 👋`}
+            </h1>
+
             <input
               type="text"
               value={username}
@@ -134,12 +74,10 @@ const Menu = () => {
             />
           </label>
 
-          <div className="space-y-4 border rounded p-4 bg-gray-50 dark:bg-gray-400">
+          <div className="space-y-4 border rounded p-4 bg-gray-50 dark:bg-background-dark-secondary">
             {/* Temperature Unit */}
             <div>
-              <span className="text-gray-700 block mb-1">
-                Temperature Unit:
-              </span>
+              <span className="block mb-1">Temperature Unit:</span>
               <label className="mr-4">
                 <input
                   type="radio"
@@ -148,7 +86,7 @@ const Menu = () => {
                   onChange={() => setTemperatureUnit("c")}
                   className="mr-1"
                 />
-                Celsius
+                Celsius (°C)
               </label>
               <label>
                 <input
@@ -158,13 +96,13 @@ const Menu = () => {
                   onChange={() => setTemperatureUnit("f")}
                   className="mr-1"
                 />
-                Fahrenheit
+                Fahrenheit (°F)
               </label>
             </div>
 
             {/* Clock Format */}
             <div>
-              <span className="text-gray-700 block mb-1">Clock Format:</span>
+              <span className="block mb-1">Clock Format:</span>
               <label className="mr-4">
                 <input
                   type="radio"
@@ -188,7 +126,7 @@ const Menu = () => {
             </div>
 
             <div>
-              <span className="text-gray-700 block mb-1">Default Search:</span>
+              <span className="block mb-1">Default Search:</span>
               <label className="mr-4">
                 <input
                   type="radio"
