@@ -81,7 +81,7 @@ export default function SearchBox() {
       </div>
 
       {suggestions.length > 0 && (
-        <ul className="absolute z-10 w-full bg-white dark:bg-gray-500 border mt-1 rounded shadow">
+        <ul className="absolute z-10 w-full bg-white dark:bg-background-dark-secondary border mt-1 rounded shadow">
           {suggestions.map((s, idx) => (
             <li
               key={idx}
