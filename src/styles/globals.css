@@ -26,7 +26,7 @@
 
 @layer components {
   .main-container {
-    @apply p-2 bg-background dark:bg-background-dark h-screen w-full flex flex-col gap-2;
+    @apply p-2 h-screen w-full flex flex-col gap-2;
   }
 
   .placeholder {
@@ -36,7 +36,7 @@
 
 @layer base {
   body {
-    @apply dark:text-text-dark;
+    @apply dark:text-text-dark bg-background dark:bg-background-dark;
   }
 
   h1 {

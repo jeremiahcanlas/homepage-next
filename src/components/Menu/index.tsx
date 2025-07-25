@@ -88,7 +88,7 @@ const Menu = () => {
                 />
                 Celsius (°C)
               </label>
-              <label>
+              <label className="mr-4">
                 <input
                   type="radio"
                   value="f"
@@ -98,6 +98,16 @@ const Menu = () => {
                 />
                 Fahrenheit (°F)
               </label>
+              {/* <label>
+                <input
+                  type="radio"
+                  value="n"
+                  checked={temperatureUnit === "n"}
+                  onChange={() => setTemperatureUnit("n")}
+                  className="mr-1"
+                />
+                hide
+              </label> */}
             </div>
 
             {/* Clock Format */}
@@ -113,7 +123,7 @@ const Menu = () => {
                 />
                 12-Hour
               </label>
-              <label>
+              <label className="mr-4">
                 <input
                   type="radio"
                   value="24"
@@ -123,6 +133,16 @@ const Menu = () => {
                 />
                 24-Hour
               </label>
+              {/* <label>
+                <input
+                  type="radio"
+                  value="n"
+                  checked={clockFormat === "n"}
+                  onChange={() => setClockFormat("n")}
+                  className="mr-1"
+                />
+                hide
+              </label> */}
             </div>
 
             <div>
@@ -138,7 +158,7 @@ const Menu = () => {
 
                 <FontAwesomeIcon icon={faGoogle} />
               </label>
-              <label className="align-middle">
+              <label className="align-middle mr-4">
                 <input
                   type="radio"
                   value="d"
@@ -147,6 +167,16 @@ const Menu = () => {
                   className="mr-1"
                 />
                 <DuckDuckGoIcon className="inline-block" />
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  value="n"
+                  checked={defaultSearch === "n"}
+                  onChange={() => setDefaultSearch("n")}
+                  className="mr-1"
+                />
+                hide
               </label>
             </div>
 

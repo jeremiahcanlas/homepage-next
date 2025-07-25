@@ -3,12 +3,17 @@ import { useEffect, useRef, useState } from "react";
 export default function SearchBox() {
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState<string[]>([]);
-  const [selectedEngine, setSelectedEngine] = useState<"g" | "d">("g");
+  const [selectedEngine, setSelectedEngine] = useState<"g" | "d" | "n">("g");
   const controllerRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
     const stored = localStorage.getItem("defaultSearch");
-    setSelectedEngine(stored === "d" ? "d" : "g");
+
+    const validEngines = new Set(["g", "d", "n"]);
+
+    if (stored && validEngines.has(stored)) {
+      setSelectedEngine(stored as "g" | "d" | "n");
+    }
   }, []);
 
   useEffect(() => {
@@ -57,6 +62,8 @@ export default function SearchBox() {
         : "https://duckduckgo.com/";
     window.location.href = `${baseUrl}?q=${encodeURIComponent(suggestion)}`;
   };
+
+  if (selectedEngine === "n") return null;
 
   return (
     <form onSubmit={handleSubmit} className="relative max-w-md">

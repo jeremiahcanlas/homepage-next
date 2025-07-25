@@ -65,7 +65,7 @@ const Mainpage = () => {
 
         {!isQuoteDisabled ? <Quote /> : null}
         <button
-          className="cursor-pointer absolute bottom-10 right-10"
+          className="cursor-pointer absolute bottom-10 right-10 hover:animate-spin"
           onClick={() => {
             setIsMenuOpen(true);
           }}

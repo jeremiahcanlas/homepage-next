@@ -1,8 +1,4 @@
-import {
-  faCloudMoon,
-  faCloudSun,
-  faMugSaucer,
-} from "@fortawesome/free-solid-svg-icons";
+import { faMoon, faMugSaucer, faSun } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useMemo, useState } from "react";
 
@@ -34,8 +30,8 @@ const Greet = () => {
 
   const icon = useMemo(() => {
     const hours = new Date().getHours();
-    if (hours >= 18) return faCloudMoon;
-    if (hours >= 12) return faCloudSun;
+    if (hours >= 18) return faMoon;
+    if (hours >= 12) return faSun;
     return faMugSaucer;
   }, []);
 
