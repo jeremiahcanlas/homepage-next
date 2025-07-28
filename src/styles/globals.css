@@ -41,7 +41,7 @@
 
 @layer components {
   .main-container {
-    @apply p-2 h-screen w-full flex flex-col gap-2;
+    @apply p-2 h-screen w-full flex flex-col gap-3;
   }
 
   .placeholder {

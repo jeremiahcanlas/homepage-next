@@ -66,7 +66,7 @@ export default function SearchBox() {
   if (selectedEngine === "n") return null;
 
   return (
-    <form onSubmit={handleSubmit} className="relative max-w-md">
+    <form onSubmit={handleSubmit} className="relative max-w-md mt-5">
       <div className="flex">
         <input
           type="text"
