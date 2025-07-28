@@ -1,0 +1,68 @@
+[
+  {
+    "label": "super_early",
+    "range": { "start": 0, "end": 4 },
+    "messages": [
+      "You're up late, {{name}}",
+      "Can't sleep, {{name}}?",
+      "Late night coding session, {{name}}?",
+      "The world is quiet, {{name}}... perfect time to think",
+      "Only the night owls like you are awake, {{name}}"
+    ]
+  },
+  {
+    "label": "early_morning",
+    "range": { "start": 4, "end": 6 },
+    "messages": [
+      "Early bird catches the worm, {{name}}",
+      "Up before sunrise, {{name}}",
+      "Rise and shine, {{name}}",
+      "You’re ahead of the world, {{name}}",
+      "The day is yours to conquer, {{name}}"
+    ]
+  },
+  {
+    "label": "morning",
+    "range": { "start": 6, "end": 12 },
+    "messages": [
+      "Good morning, {{name}}",
+      "Have a great start to your day, {{name}}",
+      "Morning, {{name}} Time to shine",
+      "Hope your coffee is strong today, {{name}}",
+      "Wishing you a productive morning, {{name}}"
+    ]
+  },
+  {
+    "label": "afternoon",
+    "range": { "start": 12, "end": 18 },
+    "messages": [
+      "Good afternoon, {{name}}",
+      "Hope your day is going well, {{name}}",
+      "Keep going strong this afternoon, {{name}}",
+      "The day is halfway through, {{name}}, keep pushing",
+      "Stay energized, {{name}}, the evening is near"
+    ]
+  },
+  {
+    "label": "evening",
+    "range": { "start": 18, "end": 22 },
+    "messages": [
+      "Good evening, {{name}}",
+      "Relax and unwind, {{name}}",
+      "Hope you had a great day, {{name}}",
+      "The night is young, {{name}}",
+      "Enjoy your evening, {{name}}"
+    ]
+  },
+  {
+    "label": "late_night",
+    "range": { "start": 22, "end": 24 },
+    "messages": [
+      "Burning the midnight oil, {{name}}?",
+      "Still awake, {{name}}? Don't forget to rest",
+      "Night owl mode activated, {{name}}",
+      "The stars are out, {{name}}, take a moment to breathe",
+      "Quiet nights are the best, {{name}}"
+    ]
+  }
+]

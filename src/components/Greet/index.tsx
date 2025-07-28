@@ -2,6 +2,8 @@ import { faMoon, faMugSaucer, faSun } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useMemo, useState } from "react";
 
+import greetingsData from "./greetings.json";
+
 const Greet = () => {
   const [username, setUsername] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
@@ -9,24 +11,20 @@ const Greet = () => {
   useEffect(() => {
     setUsername(localStorage.getItem("username"));
 
-    const hours = new Date().getHours();
+    const hour = new Date().getHours();
 
-    let message;
+    const currentPeriod = greetingsData.find(
+      (g) => hour >= g.range.start && hour < g.range.end
+    );
 
-    if (hours >= 18) {
-      message = "Good evening";
-    } else if (hours >= 12) {
-      message = "Good afternoon";
-    } else if (hours >= 5) {
-      message = "Good morning";
-    } else {
-      message = "Early morning";
+    if (currentPeriod && username) {
+      const randomMsg =
+        currentPeriod.messages[
+          Math.floor(Math.random() * currentPeriod.messages.length)
+        ];
+      setMessage(randomMsg.replace("{{name}}", username));
     }
-
-    setMessage(message);
-  }, []);
-
-  const greetingText = username ? `${message}, ${username}` : message;
+  }, [username]);
 
   const icon = useMemo(() => {
     const hours = new Date().getHours();
@@ -38,7 +36,7 @@ const Greet = () => {
   return (
     <div className="uppercase max-w-[80vw]">
       <h1 className="whitespace-nowrap">
-        {greetingText}
+        {message}
         <span className="ml-1">
           <FontAwesomeIcon width="20px" icon={icon} />
         </span>
