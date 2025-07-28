@@ -8,6 +8,16 @@
   --color-background-dark-secondary: #2c2c3a;
   --color-text: #111827;
   --color-text-dark: #d1d5db;
+
+  --animate-fade-in: fade-in 0.3s ease-in;
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 }
 
 @layer utilities {
@@ -21,6 +31,11 @@
 
   .wrap-flex {
     @apply flex flex-wrap;
+  }
+
+  .animate-once {
+    animation-iteration-count: 1 !important;
+    animation-fill-mode: forwards !important; /* keeps final state */
   }
 }
 

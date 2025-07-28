@@ -33,7 +33,10 @@ export default function Location() {
 
     return (
       <h2>
-        <FontAwesomeIcon icon={faLocationDot} className="mr-2" />
+        <FontAwesomeIcon
+          icon={faLocationDot}
+          className="mr-2 animate-fade-in"
+        />
         {location.city}
         {location.stateProvince ? ", " + location.stateProvince : ""}
       </h2>

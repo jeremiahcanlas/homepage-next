@@ -31,11 +31,11 @@ const Weather = () => {
 
   const renderWeather = () => {
     if (!weather) {
-      return <div className="placeholder w-8 h-7" />;
+      return <div className="placeholder w-8 h-7 my-1" />;
     }
 
     return (
-      <h1>
+      <h1 className="animate-fade-in">
         {weather.temperature}
         <span>{weather.unit}</span>
       </h1>
